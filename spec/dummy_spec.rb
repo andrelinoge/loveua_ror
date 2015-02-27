@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "rails_helper"
 
 describe "dummy spec" do
 	it "just passes" do

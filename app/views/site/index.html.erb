@@ -1,0 +1,14 @@
+<%= form_for @initial_registration, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
+	<%= f.email_field :email %>
+	<%= f.text_field :name %>
+	
+	<%= f.select :age, options_for_select((18..80).step(1).to_a.map{|age| ["#{age}", age]}), {include_blank: 'age'} %>
+	
+	<%= f.radio_button :gender, :male %>
+	<%= f.radio_button :gender, :female %>
+
+	<%= f.radio_button :seek_gender, :male %>
+	<%= f.radio_button :seek_gender, :female %>
+
+	<%= f.submit 'Register' %>
+<% end %>

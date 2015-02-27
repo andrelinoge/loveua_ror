@@ -37,6 +37,7 @@ group :development, :test do
   gem 'pry'
   gem 'cucumber-rails', require: false
   gem 'rspec-rails'
+  gem 'rspec-activemodel-mocks'
   gem 'database_cleaner'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
