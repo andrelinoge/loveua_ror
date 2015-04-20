@@ -5,11 +5,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'site#index'
 
-  resource :registration do
-    post 'initial'
-    get 'final_step'
-    post 'complete'
-  end
+  post 'registration/initial' => 'registration#initial', as: :initial_registration
+  get 'registration/final_step' => 'registration#final_step', as: :final_step_registration
+  post 'registration/complete' => 'registration#complete', as: :complete_registration
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

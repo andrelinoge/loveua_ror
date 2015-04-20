@@ -1,4 +1,4 @@
-<%= form_for @initial_registration, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
+<%= form_for @initial_registration, remote: true, emthod: :post, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
 	<%= f.email_field :email %>
 	<%= f.text_field :name %>
 	

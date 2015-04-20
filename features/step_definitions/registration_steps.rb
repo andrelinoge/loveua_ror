@@ -1,10 +1,10 @@
 When(/^I fill registration form with valid data$/) do
   visit('/')
-  fill_in 'email', with: 'email@mail.com'
-  fill_in 'name', with: 'user name'
-  select '28', from: 'age'
-  choose 'male'
-  choose 'seek_female'
+  fill_in 'initial_registration_form[email]', with: 'email@mail.com'
+  fill_in 'initial_registration_form[name]', with: 'user name'
+  select '28', from: 'initial_registration_form[age]'
+  choose 'initial_registration_form[gender]', option: 'male'
+  choose 'initial_registration_form[seek_gender]', option: 'female'
   click_on 'Register'
 end
 
