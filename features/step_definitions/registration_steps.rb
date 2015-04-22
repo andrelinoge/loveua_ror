@@ -9,11 +9,11 @@ When(/^I fill registration form with valid data$/) do
 end
 
 Then(/^I should be registred in application$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(User.exists?(email: 'email@mail.com')).to be_eq('user name')
 end
 
 Then(/^logged in$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(logged_in?).to be_truthy
 end
 
 Then(/^redirected to next step of registration$/) do

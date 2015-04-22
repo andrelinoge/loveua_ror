@@ -12,4 +12,6 @@ RSpec.describe User, type: :model do
   it 'pass if password long enough' do
   	expect(User.new({email: 'user@mail.com', gender: User::MALE, role: User::ROLE_USER, password: 'long_password'}).save).to be_truthy
   end
+
+  it { should have_secure_password }
 end

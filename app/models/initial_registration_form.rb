@@ -5,8 +5,10 @@ class InitialRegistrationForm
 
 	attr_accessor :name, :email, :age, :gender, :seek_gender
 
-	#validates_presence_of :name, :email, :age, :gender, :seek_gender
-	#validate email and email uniquess
+	validates_presence_of :name, :email, :age, :gender, :seek_gender
+	validates :email, email: true
+	validate :unique_email
+
 	#validate range of age
 	#validate gender and seek_gender
 
@@ -18,5 +20,12 @@ class InitialRegistrationForm
 
 	def persisted?
 		false
+	end
+
+	def unique_email
+		errors.add(:email, 'Email already in use') if User.exists?(email: self.email)
+	end
+
+	def create_user
 	end
 end
