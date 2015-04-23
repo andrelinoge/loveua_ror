@@ -3,13 +3,13 @@ When(/^I fill registration form with valid data$/) do
   fill_in 'initial_registration_form[email]', with: 'email@mail.com'
   fill_in 'initial_registration_form[name]', with: 'user name'
   select '28', from: 'initial_registration_form[age]'
-  choose 'initial_registration_form[gender]', option: 'male'
-  choose 'initial_registration_form[seek_gender]', option: 'female'
+  choose 'initial_registration_form[gender]', option: User::MALE
+  choose 'initial_registration_form[seek_gender]', option: User::FEMALE
   click_on 'Register'
 end
 
 Then(/^I should be registred in application$/) do
-  expect(User.exists?(email: 'email@mail.com')).to be_eq('user name')
+  expect(User.exists?(email: 'email@mail.com')).to be_truthy
 end
 
 Then(/^logged in$/) do

@@ -39,8 +39,52 @@ RSpec.describe InitialRegistrationForm, type: :model do
 
 			expect(InitialRegistrationForm.new(attributes).valid?).to be_falsy
 		end
+
+		it 'fails if age is less 18 or more then 80' do
+			expect(InitialRegistrationForm.new(attributes.update(age: 17)).valid?).to be_falsy
+			expect(InitialRegistrationForm.new(attributes.update(age: 81)).valid?).to be_falsy
+		end
+
+		it 'success if age is >= 18 and <= 80' do
+			expect(InitialRegistrationForm.new(attributes.update(age: 18)).valid?).to be_truthy
+			expect(InitialRegistrationForm.new(attributes.update(age: 80)).valid?).to be_truthy
+		end
+
+		it 'success if gender is MALE or FEMAIL' do
+			expect(InitialRegistrationForm.new(attributes.update(gender: User::MALE)).valid?).to be_truthy
+			expect(InitialRegistrationForm.new(attributes.update(gender: User::FEMALE)).valid?).to be_truthy
+		end
+
+		it 'fails if gender is not MALE or FEMAIL' do
+			expect(InitialRegistrationForm.new(attributes.update(gender: 0)).valid?).to be_falsy
+		end
+
+		it 'success if seek gender is MALE or FEMAIL' do
+			expect(InitialRegistrationForm.new(attributes.update(seek_gender: User::MALE)).valid?).to be_truthy
+			expect(InitialRegistrationForm.new(attributes.update(seek_gender: User::FEMALE)).valid?).to be_truthy
+		end
+
+		it 'fails if seek gender is not MALE or FEMAIL' do
+			expect(InitialRegistrationForm.new(attributes.update(seek_gender: 0)).valid?).to be_falsy
+		end
 	end
 
-  
+  context 'Functionality' do
+  	let(:valid_attributes) {
+			{ name: 'user name',
+				email: 'valid@mail.com',
+				age: 18,
+				gender: User::MALE,
+				seek_gender: User::FEMALE
+			}
+		}
+
+  	it 'Should create user for given valid params' do
+  		form = InitialRegistrationForm.new(valid_attributes)
+  		user = form.create_user
+
+  		expect(User.exists?(id: user.id)).to be_truthy
+  	end
+  end
 
 end

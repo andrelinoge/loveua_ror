@@ -9,13 +9,22 @@ class InitialRegistrationForm
 	validates :email, email: true
 	validate :unique_email
 
-	#validate range of age
-	#validate gender and seek_gender
+	validates :age, inclusion: { in: 18..80 }
+	validates :gender, inclusion: { in: User::MALE..User::FEMALE }
+	validates :seek_gender, inclusion: { in: User::MALE..User::FEMALE }
 
 	def initialize(attributes = {})
 		attributes.each do |name, value|
 			send("#{name}=", value)
 		end
+
+		convert_types
+	end
+
+	def convert_types
+		self.age = self.age.to_i
+		self.gender = self.gender.to_i
+		self.seek_gender = self.seek_gender.to_i
 	end
 
 	def persisted?
@@ -27,5 +36,15 @@ class InitialRegistrationForm
 	end
 
 	def create_user
+		random_password = ('0'..'z').to_a.shuffle.first(8).join
+
+		user = User.new({
+			name: self.name,
+			email: self.email,
+			gender: self.gender,
+			password: random_password
+		})
+
+		user.save(validate: false) and return user
 	end
 end

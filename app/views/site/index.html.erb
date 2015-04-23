@@ -4,11 +4,11 @@
 	
 	<%= f.select :age, options_for_select((18..80).step(1).to_a.map{|age| ["#{age}", age]}), {include_blank: 'age'} %>
 	
-	<%= f.radio_button :gender, :male %>
-	<%= f.radio_button :gender, :female %>
+	<%= f.radio_button :gender, User::MALE %>
+	<%= f.radio_button :gender, User::FEMALE %>
 
-	<%= f.radio_button :seek_gender, :male %>
-	<%= f.radio_button :seek_gender, :female %>
+	<%= f.radio_button :seek_gender, User::MALE %>
+	<%= f.radio_button :seek_gender, User::FEMALE %>
 
 	<%= f.submit 'Register' %>
 <% end %>
