@@ -8,7 +8,7 @@ class RegistrationController < ApplicationController
 
 			respond_to do |format|
 				format.html { redirect_to final_step_registration_path }
-				format.js { render inline: "window.location = '#{final_step_registration_url}'" }
+				format.json { render json: {}, status: :ok }
 			end
 		else
 			respond_to do |format|

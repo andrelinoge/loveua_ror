@@ -2,7 +2,7 @@
   $.fn.render_form_errors = (model_name, errors) ->
     form = this
     this.clear_form_errors()
-
+    
     $.each(errors, (field, messages) ->
       input = form.find('input, select, textarea').filter(->
         name = $(this).attr('name')
@@ -12,7 +12,7 @@
       input.closest('.form-group').addClass('has-error')
       input.parent().append('<span class="help-block">' + $.map(messages, (m) -> m.charAt(0).toUpperCase() + m.slice(1)).join('<br />') + '</span>')
     )
-      
+
   $.fn.clear_form_errors = () ->
     this.find('.form-group').removeClass('has-error')
     this.find('span.help-block').remove()

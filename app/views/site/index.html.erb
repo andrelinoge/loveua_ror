@@ -22,11 +22,7 @@
 </div>
 
 <script type="text/javascript">
-	$.ajaxSetup({
-	  dataType: 'json'
-	})
-
-	$('#initial_registration').on('ajax:error', function(e, data, status, xhr) {
-		$(this).render_form_errors('initial_registration_form', data.responseJSON);
-	})
+	$(function() {
+		var initial_registration = new InitialRegistration('<%= final_step_registration_url %>');
+	});
 </script>
