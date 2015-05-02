@@ -1,7 +1,7 @@
 When(/^I fill registration form with valid data$/) do
   visit('/')
   fill_in 'initial_registration_form[email]', with: 'email@mail.com'
-  fill_in 'initial_registration_form[name]', with: 'user name'
+  fill_in 'initial_registration_form[name]', with: 'user_name'
   select '28', from: 'initial_registration_form[age]'
   choose 'initial_registration_form[gender]', option: User::MALE
   choose 'initial_registration_form[seek_gender]', option: User::FEMALE
@@ -9,13 +9,32 @@ When(/^I fill registration form with valid data$/) do
 end
 
 Then(/^I should be registred in application$/) do
+  sleep 2
   expect(User.exists?(email: 'email@mail.com')).to be_truthy
 end
 
-Then(/^logged in$/) do
-  expect(logged_in?).to be_truthy
+Then(/^redirected to next step of registration$/) do
+  expect(page).to have_content 'Complete registration'
 end
 
-Then(/^redirected to next step of registration$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^logged in$/) do
+  expect(page).to have_content 'Log out'
+end
+
+When(/^I fill registration form with invalid data$/) do
+  visit('/')
+  fill_in 'initial_registration_form[email]', with: 'email#mail.com'
+  fill_in 'initial_registration_form[name]', with: ''
+  select '28', from: 'initial_registration_form[age]'
+  choose 'initial_registration_form[gender]', option: User::MALE
+  choose 'initial_registration_form[seek_gender]', option: User::FEMALE
+  click_on 'Register'
+end
+
+Then(/^I should see validation errors$/) do
+  sleep 2
+end
+
+Then(/^stay on the same page$/) do
+  
 end

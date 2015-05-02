@@ -28,6 +28,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
  gem 'email_validator'
 
+ gem "twitter-bootstrap-rails"
+ gem 'bootstrap_form'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -51,5 +54,7 @@ group :development, :test do
   gem 'spring-commands-cucumber'
 
   gem 'shoulda-matchers'
+
+  gem 'poltergeist'
 end
 

@@ -1,19 +1,24 @@
 class RegistrationController < ApplicationController
 	def initial
-		@initial_registration = InitialRegistrationForm.new(params[:initial_registration_form])
+		@initial_registration_form = InitialRegistrationForm.new(params[:initial_registration_form])
 
-		if @initial_registration.valid?
-			user = @initial_registration.create_user 
+		if @initial_registration_form.valid?
+			user = @initial_registration_form.create_user 
 			session[:user_id] = user.id
 
-			redirect_to action: 'final_step' and return
+			respond_to do |format|
+				format.html { redirect_to final_step_registration_path }
+				format.js { render inline: "window.location = '#{final_step_registration_url}'" }
+			end
+		else
+			respond_to do |format|
+				format.json { render json: @initial_registration_form.errors, status: :unprocessable_entity }
+			end
 		end
-
-		render nothing: true
 	end
 
 	def final_step
-		render nothing: true
+		
 	end
 
 	def complete
