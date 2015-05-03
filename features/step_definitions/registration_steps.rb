@@ -33,8 +33,9 @@ end
 
 Then(/^I should see validation errors$/) do
   sleep 2
+  expect(page).to have_content "Can't be blank"
 end
 
 Then(/^stay on the same page$/) do
-  
+  expect(page).to have_content 'Registraion'
 end
