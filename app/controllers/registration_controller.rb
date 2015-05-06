@@ -1,7 +1,6 @@
 class RegistrationController < ApplicationController
 	def initial
 		@initial_registration_form = InitialRegistrationForm.new(params[:initial_registration_form])
-
 		if @initial_registration_form.valid?
 			user = @initial_registration_form.create_user 
 			session[:user_id] = user.id

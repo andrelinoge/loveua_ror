@@ -14,11 +14,13 @@ class InitialRegistrationForm
 	validates :seek_gender, inclusion: { in: User::MALE..User::FEMALE }
 
 	def initialize(attributes = {})
-		attributes.each do |name, value|
-			send("#{name}=", value)
-		end
+		if attributes.present? 
+			attributes.each do |name, value|
+				send("#{name}=", value)
+			end
 
-		convert_types
+			convert_types
+		end
 	end
 
 	def convert_types

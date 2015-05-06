@@ -4,7 +4,7 @@
 		</div>
 		<div class="col-lg-4">
 			<h3>Registraion</h3>
-			<%= bootstrap_form_for @initial_registration, remote: true, emthod: :post, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
+			<%= bootstrap_form_for @initial_registration_form, remote: true, emthod: :post, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
 				<%= f.email_field :email %>
 				<%= f.text_field :name %>
 				

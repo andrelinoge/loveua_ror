@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
 	def index
-		@initial_registration = InitialRegistrationForm.new
+		@initial_registration_form = InitialRegistrationForm.new
 	end
 end
