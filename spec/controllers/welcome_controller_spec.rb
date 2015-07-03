@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiteController, type: :controller do
+RSpec.describe WelcomeController, type: :controller do
 	describe "GET index" do
 		let!(:form) { mock_model("InitialRegistrationForm").as_new_record }
 
