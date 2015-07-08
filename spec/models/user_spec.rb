@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-	context 'Validations' do
-		let(:attributes) {
-			{ name: 'user name',
-				email: 'valid@mail.com',
-				gender: User::MALE,
-				role: User::ROLE_USER,
-				password: '123456',
-			}
+	let(:attributes) {
+		{ 
+			name: 'user name',
+			email: 'valid@mail.com',
+			gender: User::MALE,
+			role: User::ROLE_USER,
+			password: '123456'
 		}
+	}
 
+	context 'Validations' do
 		it { should validate_presence_of(:name) }
 		it { should validate_presence_of(:email) }
 		it { should validate_presence_of(:gender) }
@@ -59,6 +60,12 @@ RSpec.describe User, type: :model do
 	  end
 
 	  it { should have_secure_password }
+	end
+
+	context 'Mailing' do
+		it 'sends welcome email with password' do
+			expect { User.create(attributes) }.to change { ActionMailer::Base.deliveries.count }.by(1)
+		end
 	end
   
 end

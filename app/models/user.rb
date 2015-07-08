@@ -20,11 +20,15 @@ class User < ActiveRecord::Base
 	private
 
 	def generate_password
-		@generated_password = ('a'..'z').to_a.shuffle.first(8).join
-		self.password = @generated_password
+		if self.password.empty?
+			@generated_password = ('a'..'z').to_a.shuffle.first(8).join
+			self.password = @generated_password
+		else
+			@generated_password = self.password
+		end
 	end
 
 	def send_welcome_email
-		RegistrationMailer.welcome(self, @generated_password).deliver if self.email.present?
+		RegistrationMailer.welcome(self, @generated_password).deliver_now if self.email.present?
 	end
 end

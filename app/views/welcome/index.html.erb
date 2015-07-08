@@ -16,26 +16,29 @@
 		  <!-- Tab panes -->
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="registration">
-		    	<%= bootstrap_form_for @initial_registration_form, remote: true, emthod: :post, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
+		    	<%= bootstrap_form_for @initial_registration_form, remote: true, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
 						<%= f.email_field :email %>
 						<%= f.text_field :name %>
 						
 						<%= f.select :age, options_for_select((18..80).step(1).to_a.map{|age| ["#{age}", age]}), {include_blank: 'age'} %>
-						
-						<%= f.radio_button :gender, User::MALE %>
-						<%= f.radio_button :gender, User::FEMALE %>
-
-						<%= f.radio_button :seek_gender, User::MALE %>
-						<%= f.radio_button :seek_gender, User::FEMALE %>
+						<p>gender:</p>
+						<%= f.radio_button :gender, User::MALE %> male
+						<%= f.radio_button :gender, User::FEMALE %> female
+						<br>
+						<p>seek:</p>
+						<%= f.radio_button :seek_gender, User::MALE %> male
+						<%= f.radio_button :seek_gender, User::FEMALE %> female
 
 						<%= f.submit 'Register' %>
 					<% end %>
 		    </div>
 
 		    <div role="tabpanel" class="tab-pane" id="login">
-		    	<%= bootstrap_form_tag url: authorization_url, html: { id: 'login' } do |f| %>
+		    	<%= bootstrap_form_tag url: login_url, remote: true, html: { id: 'login' } do |f| %>
 		    		<%= f.email_field :email %>
-		    		<%= f.password_field :email %>
+		    		<%= f.password_field :password %>
+
+		    		<%= f.submit 'Log in' %>
 		    	<% end %>
 		    </div>
 		  </div>
@@ -47,6 +50,6 @@
 <script type="text/javascript">
 	$(function() {
 		var initial_registration = new InitialRegistration('<%= final_step_registration_url %>');
-		var auth_controller = new AuthController('<%= authorization_url %>');
+		var auth_controller = new AuthController('<%= profile_url %>');
 	});
 </script>

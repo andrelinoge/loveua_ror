@@ -37,5 +37,5 @@ Then(/^I should see validation errors$/) do
 end
 
 Then(/^stay on the same page$/) do
-  expect(page).to have_content 'Registraion'
+  expect(page).to have_content 'Registration'
 end

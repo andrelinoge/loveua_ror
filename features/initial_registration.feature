@@ -23,7 +23,10 @@ Feature: User regisration
 		When I fill my personal data
 		Then my profile is updated successfully
 		When I fill my questionary data
-		Then my questionary is updated successfully
+
+	Scenario: User uploads photos
+		Given I am a user
+		And I am on complete registration page
 		When I upload valid photos
 		Then I have all photos in my gallery with thumbnails
 		And first photo becomes my avatar

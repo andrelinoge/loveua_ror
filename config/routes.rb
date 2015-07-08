@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   get 'registration/final_step' => 'registration#final_step', as: :final_step_registration
   post 'registration/complete' => 'registration#complete', as: :complete_registration
 
-  post 'session/create' => 'session#create', as: :authorization
+  post 'login' => 'sessions#create', as: :login
+  delete 'logout'  => 'sessions#destroy', as: :logout
 
-  resources :profile, only: :index
+  get 'profile/index' => 'profile/index', as: :profile
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

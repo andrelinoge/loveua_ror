@@ -58,5 +58,7 @@ group :development, :test do
   gem 'shoulda-matchers'
 
   gem 'poltergeist'
+
+  gem 'factory_girl_rails'
 end
 

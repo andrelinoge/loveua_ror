@@ -5,7 +5,7 @@ class InitialRegistration
 		  dataType: 'json'
 		})
 
-		$('#initial_registration').on('ajax:success', (e, data, status, xhr) =>
+		$('form#initial_registration').on('ajax:success', (e, data, status, xhr) =>
 			window.location = @redirect_on_success
 		)
 		.on('ajax:error', (e, data, status, xhr) ->

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RegistrationController, type: :controller do
+RSpec.describe RegistrationController do
 	describe "POST initial" do
 		let!(:valid_params) {{
 				email: 'email@mail.com',

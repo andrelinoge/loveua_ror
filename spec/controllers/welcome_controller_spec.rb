@@ -5,7 +5,7 @@ RSpec.describe WelcomeController, type: :controller do
 		let!(:form) { mock_model("InitialRegistrationForm").as_new_record }
 
 		before :each do
-			InitialRegistrationForm.stub(:new).and_return(form)
+			allow(InitialRegistrationForm).to receive(:new).and_return(form)
 		end
 
 		it "renders index template" do
