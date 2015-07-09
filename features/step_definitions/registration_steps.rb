@@ -39,3 +39,23 @@ end
 Then(/^stay on the same page$/) do
   expect(page).to have_content 'Registration'
 end
+
+Given(/^I am on complete registration page$/) do
+  pending
+end
+
+When(/^$I fill my personal data and click save/) do
+  pending
+end
+
+Then(/^my profile is updated successfully$/) do
+  pending
+end
+
+When(/^$I fill my questionary data and click save/) do
+  pending
+end
+
+Then(/^$my questionary data is updated successfully/) do
+  pending
+end

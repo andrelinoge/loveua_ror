@@ -20,9 +20,10 @@ Feature: User regisration
 	Scenario: User complete registration
 		Given I am a user
 		And I am on complete registration page
-		When I fill my personal data
+		When I fill my personal data and click save
 		Then my profile is updated successfully
-		When I fill my questionary data
+		When I fill my questionary data and click save
+		Then my questionary data is updated successfully
 
 	Scenario: User uploads photos
 		Given I am a user

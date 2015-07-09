@@ -1,16 +1,16 @@
+USER_EMAIL = 'user@mail.com'
+USER_PASSWORD = '123456'
+
 Given(/^I am a guest$/) do
   
 end
 
 Given(/^I am a user$/) do
-  pending
-  # user = User.create({ 
-  #   name: 'user name',
-  #   email: 'valid@mail.com',
-  #   gender: User::MALE,
-  #   role: User::ROLE_USER,
-  #   password: '123456',
-  # })
+  FactoryGirl.create(:user, email: USER_EMAIL, password: USER_PASSWORD)
 
-  # session[:user_id] = user.id
+  visit('/')
+  click_on 'Login'
+  fill_in 'email', with: USER_EMAIL
+  fill_in 'password', with: USER_PASSWORD
+  click_on 'Log in'
 end
