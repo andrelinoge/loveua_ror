@@ -1,7 +1,11 @@
 class InitialRegistrationForm
-	include ActiveModel::Validations
-	include ActiveModel::Conversion
-	extend ActiveModel::Naming
+	include ActiveModel::Model
+	
+	# include ActiveModel::Validations
+	# include ActiveModel::Conversion
+
+	# extend ActiveModel::Naming
+	# extend ActiveModel::Callbacks
 
 	attr_accessor :name, :email, :age, :gender, :seek_gender
 
@@ -20,12 +24,13 @@ class InitialRegistrationForm
 			end
 
 			convert_types
+			self.email.downcase!
 		end
 	end
 
 	def convert_types
-		self.age = self.age.to_i
-		self.gender = self.gender.to_i
+		self.age         = self.age.to_i
+		self.gender      = self.gender.to_i
 		self.seek_gender = self.seek_gender.to_i
 	end
 
@@ -47,6 +52,10 @@ class InitialRegistrationForm
 			password: random_password
 		})
 
-		user.save(validate: false) and return user
+		user.save(validate: false) 
+		
+
+
+		return user
 	end
 end

@@ -1,12 +1,12 @@
 class RegistrationController < ApplicationController
 	def initial
-		@initial_registration_form = InitialRegistrationForm.new(params[:initial_registration_form])
+		@initial_registration_form = InitialRegistrationForm.new(registration_params)
 		if @initial_registration_form.valid?
 			user = @initial_registration_form.create_user 
-			session[:user_id] = user.id
+			log_in user
 
 			respond_to do |format|
-				format.html { redirect_to final_step_registration_path }
+				format.html { redirect_to complete_registration_path }
 				format.json { render json: {}, status: :ok }
 			end
 		else
@@ -16,12 +16,14 @@ class RegistrationController < ApplicationController
 		end
 	end
 
-	def final_step
+	def complete
 		
 	end
 
-	def complete
-		
+	private
+
+	def registration_params
+		params.require(:initial_registration_form).permit(:name, :email, :age, :gender, :seek_gender)
 	end
 
 end

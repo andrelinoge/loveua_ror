@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   post 'registration/initial' => 'registration#initial', as: :initial_registration
-  get 'registration/final_step' => 'registration#final_step', as: :final_step_registration
-  post 'registration/complete' => 'registration#complete', as: :complete_registration
+  get 'registration/complete' => 'registration#complete', as: :complete_registration
 
   post 'login' => 'sessions#create', as: :login
   delete 'logout'  => 'sessions#destroy', as: :logout
