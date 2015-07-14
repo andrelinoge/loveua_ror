@@ -54,6 +54,10 @@
               <li><%= link_to "Profile", profile_path  %></li>
             <% end %>
 
+            <% if logged_in? && current_user.is_admin? %>
+              <li><%= link_to "Admin", admin_dashboard_path  %></li>
+            <% end %>
+
             <% if logged_in? %>
             	<li><%= link_to "Log out (#{current_user.name})", logout_path, method: :delete  %></li>
           	<% end %>

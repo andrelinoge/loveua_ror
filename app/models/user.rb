@@ -18,10 +18,12 @@ class User < ActiveRecord::Base
 	after_create :send_welcome_email
 
 	before_save { self.email.downcase! }
-	#after_save :create_related_models
 
 	has_one :profile
 	has_one :questionary
+
+	accepts_nested_attributes_for :profile
+	accepts_nested_attributes_for :questionary
 
 	attr_accessor :remember_token
 
@@ -46,6 +48,10 @@ class User < ActiveRecord::Base
 	def authenticated?(remember_token)
 		return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def is_admin?
+  	self.role == ROLE_ADMIN
   end
 
 	private

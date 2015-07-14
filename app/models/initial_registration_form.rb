@@ -46,6 +46,7 @@ class InitialRegistrationForm
 		random_password = ('0'..'z').to_a.shuffle.first(8).join
 
 		user = User.new({
+			role: User::ROLE_USER,
 			name: self.name,
 			email: self.email,
 			gender: self.gender,
