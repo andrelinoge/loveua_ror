@@ -79,12 +79,15 @@ RSpec.describe InitialRegistrationForm, type: :model do
 			}
 		}
 
-  	it 'Should create user for given valid params' do
+  	it 'Should create user for given valid params with related models' do
   		form = InitialRegistrationForm.new(valid_attributes)
   		user = form.create_user
 
   		expect(User.exists?(id: user.id)).to be_truthy
+  		expect(Profile.exists?(user_id: user.id)).to be_truthy
+  		expect(Questionary.exists?(user_id: user.id)).to be_truthy
   	end
+
   end
 
 end

@@ -53,8 +53,9 @@ class InitialRegistrationForm
 		})
 
 		user.save(validate: false) 
-		
 
+		user.create_profile
+		user.create_questionary({ age: self.age, seek_gender: self.seek_gender})
 
 		return user
 	end
