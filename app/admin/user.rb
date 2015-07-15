@@ -1,7 +1,9 @@
 ActiveAdmin.register User do
+  decorate_with UserDecorator
 
-  permit_params :id, :name, :email, :is_email_confirm, :role, :gender, 
-                profile_attributes: [:mood_id, :zodiak_id, :interesting, :about, :id]
+  permit_params :id, :name, :email, :is_email_confirm, :role, :gender,
+                profile_attributes: [:mood_id, :zodiak_id, :interesting, :about, :id],
+                questionary_attributes: [:city_id, :region_id, :age, :weight, :height, :seek_gender]
 
   #filter :name
   #filter :region_id, as: :select, collection: Region.all
@@ -33,7 +35,7 @@ ActiveAdmin.register User do
   end
 
   form do |f|
-    semantic_errors
+    f.semantic_errors
 
     f.inputs 'User details' do
       f.input :name, required: true
@@ -52,6 +54,17 @@ ActiveAdmin.register User do
       end
     end
 
+    f.inputs 'User questionary' do
+      has_many :questionary, new_record: false, allow_destroy: false, heading: false do |p|
+        p.input :height
+        p.input :weight
+        p.input :age
+        p.input :seek_gender, as: :radio, collection: {'Male' => User::MALE, 'Female' => User::FEMALE}
+        p.input :region
+        p.input :city
+      end
+    end
+
     actions
   end
 
@@ -60,12 +73,8 @@ ActiveAdmin.register User do
       row :id
       row :name
       row :email
-      row :is_email_confirm do
-        user.is_email_confirm ? 'Yes' : 'No'
-      end
-      row :role do
-        user.is_admin? ? 'Admin' : 'User'
-      end
+      row :is_email_confirm
+      row :role 
       row :avatar do
         user.avatar.present? ? (image_tag user.avatar.url) : 'Not set'
       end
@@ -73,25 +82,17 @@ ActiveAdmin.register User do
 
     panel "Profile" do
       attributes_table_for user.profile do 
-        row :mood do |profile|
-          profile.mood.present? ? profile.mood.name : 'not set'
-        end
-        row :zodiak do |profile|
-          profile.zodiak.present? ? profile.zodiak.name : 'not set'
-        end
+        row :mood
+        row :zodiak
         row :about
         row :interesting
       end
     end
 
     panel "Questionary" do
-      attributes_table_for user.questionary do 
-        row :city do |questionary|
-          questionary.city.present? ? questionary.city.name : 'not set'
-        end
-        row :region do |questionary|
-          questionary.region.present? ? questionary.region.name : 'not set'
-        end
+      attributes_table_for user.questionary.decorate do 
+        row :city 
+        row :region
         row :age
         row :seek_gender
         row :height

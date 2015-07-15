@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
 
 	has_secure_password
 
-	validates :password, length: { minimum: 6 }
+	validates :password, length: { minimum: 6 }, allow_blank: true
 
 	validates_presence_of :name, :email, :gender, on: :create
-	validates :email, email: true, uniqueness: true
+	validates :email, email: true, uniqueness: true, on: :create
 
 	validates :gender, inclusion: { in: [User::MALE, User::FEMALE] }
 
