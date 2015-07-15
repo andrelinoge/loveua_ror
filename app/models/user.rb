@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
 	accepts_nested_attributes_for :profile
 	accepts_nested_attributes_for :questionary
 
+	mount_uploader :avatar, AvatarUploader
+
 	attr_accessor :remember_token
 
 	def self.new_token

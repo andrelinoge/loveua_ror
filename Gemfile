@@ -29,7 +29,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'email_validator'
 
 gem "twitter-bootstrap-rails"
-gem 'bootstrap_form'
+#gem 'bootstrap_form'
+gem 'simple_form'
 
 gem "puma"
 
@@ -37,6 +38,9 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'cancancan'
 gem 'draper'
 gem 'pundit'
+
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

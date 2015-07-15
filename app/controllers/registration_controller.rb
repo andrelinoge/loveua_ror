@@ -17,13 +17,31 @@ class RegistrationController < ApplicationController
 	end
 
 	def complete
-		
+		@user = current_user
+	end
+
+	def update_account
+		@user = current_user
+		if @user.update(update_account_params)
+			flash[:success] = 'update succesfully'
+		else
+			flash[:error] = 'update failed'
+		end
+		render :complete
 	end
 
 	private
 
 	def registration_params
 		params.require(:initial_registration_form).permit(:name, :email, :age, :gender, :seek_gender)
+	end
+
+	def update_account_params
+		params.require(:user).permit(
+			:avatar, :avatar_cache, 
+			profile_attributes: [:zodiak_id, :mood_id, :about, :interesting],
+			questionary_attributes: [:age, :weight, :height, :city_id, :region_id]
+		)
 	end
 
 end

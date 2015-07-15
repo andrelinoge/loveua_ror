@@ -1,12 +1,6 @@
 class InitialRegistrationForm
 	include ActiveModel::Model
 	
-	# include ActiveModel::Validations
-	# include ActiveModel::Conversion
-
-	# extend ActiveModel::Naming
-	# extend ActiveModel::Callbacks
-
 	attr_accessor :name, :email, :age, :gender, :seek_gender
 
 	validates_presence_of :name, :email, :age, :gender, :seek_gender

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post 'registration/initial' => 'registration#initial', as: :initial_registration
   get 'registration/complete' => 'registration#complete', as: :complete_registration
+  patch 'registration/update_account' => 'registration#update_account', as: :update_account_registration
 
   post 'login' => 'sessions#create', as: :login
   delete 'logout'  => 'sessions#destroy', as: :logout
