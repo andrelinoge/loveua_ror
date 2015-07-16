@@ -8,12 +8,16 @@ Rails.application.routes.draw do
 
   post 'registration/initial' => 'registration#initial', as: :initial_registration
   get 'registration/complete' => 'registration#complete', as: :complete_registration
+  get 'registration/update_account' => 'registration#complete'
   patch 'registration/update_account' => 'registration#update_account', as: :update_account_registration
 
   post 'login' => 'sessions#create', as: :login
   delete 'logout'  => 'sessions#destroy', as: :logout
 
-  get 'profile/index' => 'profile/index', as: :profile
+  get 'profile/' => 'profile#show', as: :own_profile
+  get 'profile/:id' => 'profile#show', as: :profile
+
+  post 'location/cities' => 'location#cities'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

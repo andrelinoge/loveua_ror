@@ -45,18 +45,34 @@ Given /^I am on complete registration page$/ do
   expect(page).to have_content 'Complete registration'
 end
 
-When /^$I fill my personal data and click save/ do
+When /^I fill my personal data and click save$/ do
+  mood   = FactoryGirl.create(:mood, name: 'happy')
+  zodiak = FactoryGirl.create(:zodiak, name: 'fish')
+  
+  region = FactoryGirl.create(:region, name: 'Ivano-Frankivsk')
+  city   = FactoryGirl.create(:city, name: 'Ivano-Frankivsk', region: region)
+
+  visit(complete_registration_path) #revisit page in order to render all associated options for select boxes
+  select mood.name, from: 'user[profile_attributes][mood_id]'
+  select zodiak.name, from: 'user_profile_attributes_zodiak_id'
+
+  fill_in 'user_profile_attributes_interesting', with: 'something interesting'
+  fill_in 'user_profile_attributes_about', with: 'something about'
+
+  click_on 'Save'
+end
+
+Then /^my profile and questionary are updated successfully$/ do
+  user = User.first
+
+  expect(user.profile.mood.name).to eq('happy')
+  expect(user.profile.zodiak.name).to eq('fish')
+end
+
+When /^I fill my questionary data and click save$/ do
   pending
 end
 
-Then /^my profile is updated successfully$/ do
-  pending
-end
-
-When /^$I fill my questionary data and click save/ do
-  pending
-end
-
-Then /^$my questionary data is updated successfully/ do
+Then /^my questionary data is updated successfully$/ do
   pending
 end

@@ -5,6 +5,9 @@ FactoryGirl.define do
     gender User::MALE
     role User::ROLE_USER
     password '123456'
+
+    association :profile, factory: :profile
+    association :questionary, factory: :questionary
   end
 
   factory :admin, class: User do

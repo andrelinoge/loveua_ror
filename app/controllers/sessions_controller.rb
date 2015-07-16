@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+	skip_authorization_check 
+
 	def create
 		user = User.find_by(email: params[:session][:email].downcase)
 		
@@ -7,7 +9,7 @@ class SessionsController < ApplicationController
 			params[:session][:remember_me] == 1 ? remember(user) : forget(user)
 
 			respond_to do |format| 
-				format.html { redirect_to profile_path }
+				format.html { redirect_to own_profile_path }
 				format.json { render json: {}, status: :ok }
 			end
 		else

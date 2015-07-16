@@ -1,19 +1,15 @@
-USER_EMAIL = 'user@mail.com'
-USER_PASSWORD = '123456'
-USER_WRONG_PASSWORD = 'abc'
-
 When /^I enter valid credentials and click log in button$/ do
-  FactoryGirl.create(:user, email: USER_EMAIL, password: USER_PASSWORD)
+  FactoryGirl.create(:user, email: 'user@mail.com', password: '123456')
 
   visit('/')
   click_on 'Login'
-  fill_in 'session_email', with: USER_EMAIL
-  fill_in 'session_password', with: USER_PASSWORD
+  fill_in 'session_email', with: 'user@mail.com'
+  fill_in 'session_password', with: '123456'
   click_on 'Log in'
 end
 
 Then /^I should be logged in$/ do
-  user = User.find_by_email USER_EMAIL
+  user = User.find_by_email 'user@mail.com'
   expect(page).to have_content user.name
   expect(page).to have_content 'Log out'
 end 
@@ -23,12 +19,12 @@ Then /^redirected to profile page$/ do
 end
 
 When /^I enter invalid credentials and click log in button$/ do
-  FactoryGirl.create(:user, email: USER_EMAIL, password: USER_PASSWORD)
+  FactoryGirl.create(:user, email: 'user@mail.com', password: '123456')
 
   visit('/')
   click_on 'Login'
-  fill_in 'session_email', with: USER_EMAIL
-  fill_in 'session_password', with: USER_WRONG_PASSWORD
+  fill_in 'session_email', with: 'user@mail.com'
+  fill_in 'session_password', with: 'abc'
   click_on 'Log in'
 end
 

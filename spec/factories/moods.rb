@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :mood do
-    name "MyString"
+    name "mood"
   end
 
 end

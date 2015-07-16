@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :city do
-    name "MyString"
-region ""
+    name "city name"
+    association :region, factory: :region
   end
 
 end

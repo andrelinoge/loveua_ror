@@ -1,5 +1,7 @@
 class RegistrationController < ApplicationController
 	def initial
+		authorize! :create, User
+
 		@initial_registration_form = InitialRegistrationForm.new(registration_params)
 		if @initial_registration_form.valid?
 			user = @initial_registration_form.create_user 
@@ -18,16 +20,18 @@ class RegistrationController < ApplicationController
 
 	def complete
 		@user = current_user
+		authorize! :edit, @user
 	end
 
 	def update_account
 		@user = current_user
-		if @user.update(update_account_params)
-			flash[:success] = 'update succesfully'
+		if @user.update(user_params)
+			redirect_to complete_registration_path
 		else
-			flash[:error] = 'update failed'
+			render :complete
 		end
-		render :complete
+		
+		authorize! :update, @user
 	end
 
 	private
@@ -36,7 +40,7 @@ class RegistrationController < ApplicationController
 		params.require(:initial_registration_form).permit(:name, :email, :age, :gender, :seek_gender)
 	end
 
-	def update_account_params
+	def user_params
 		params.require(:user).permit(
 			:avatar, :avatar_cache, 
 			profile_attributes: [:zodiak_id, :mood_id, :about, :interesting],

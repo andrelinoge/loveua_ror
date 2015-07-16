@@ -56,6 +56,14 @@ class User < ActiveRecord::Base
   	self.role == ROLE_ADMIN
   end
 
+  def is_user?
+  	self.role == ROLE_USER
+  end
+
+  def is_guest?
+  	self.role.nil?
+  end
+
 	private
 
 	def generate_password

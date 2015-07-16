@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :profile do
-    about "MyText"
-mood ""
-zodiak ""
-interesting "MyText"
+    association :mood, factory: :mood
+    association :zodiak, factory: :zodiak
+    interesting "interesting text"
+    about "about text"
   end
 
 end

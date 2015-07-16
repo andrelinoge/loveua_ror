@@ -51,7 +51,7 @@
             <li><%= link_to "Link1", "/path1"  %></li>
 
             <% if logged_in? %>
-              <li><%= link_to "Profile", profile_path  %></li>
+              <li><%= link_to "Profile", own_profile_path  %></li>
             <% end %>
 
             <% if logged_in? && current_user.is_admin? %>

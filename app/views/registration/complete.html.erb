@@ -28,8 +28,8 @@
   <div class="row">
     <div class="col-lg-12">
       <%= f.fields_for :questionary do |q| %>
-        <%= q.association :region %>
-        <%= q.association :city %>
+        <%= q.association :region, include_blank: 'your region' %>
+        <%= q.association :city, disabled: q.object.region.nil?, include_blank: 'your city', collection: collestion_of_cities_for_region(q.object.region) %>
 
         <%= q.input :age, as: :select, collection: Questionary::age_options %>
         <%= q.input :height %>
@@ -39,5 +39,13 @@
     </div>
   </div>
 
-  <%= f.submit %>
+  <%= f.submit 'Save' %>
 <% end %>
+
+<script type="text/javascript">
+  $(function() {
+    var locationController = new LocationController;
+
+    locationController.track_region_change('#user_questionary_attributes_region_id', '#user_questionary_attributes_city_id');
+  });
+</script>

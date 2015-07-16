@@ -1,4 +1,5 @@
 class ProfileController < ApplicationController
-	def index
+	def show
+    authorize! :read, Profile
 	end
 end
