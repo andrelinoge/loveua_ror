@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {registrations: 'registrations'}
+
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -6,10 +8,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  post 'registration/initial' => 'registration#initial', as: :initial_registration
-  get 'registration/complete' => 'registration#complete', as: :complete_registration
-  get 'registration/update_account' => 'registration#complete'
-  patch 'registration/update_account' => 'registration#update_account', as: :update_account_registration
+  get 'registration/complete' => 'registrations#complete', as: :complete_registration
+  get 'registration/update_account' => 'registrations#complete'
+  patch 'registration/update_account' => 'registrations#update_account', as: :update_account_registration
 
   post 'login' => 'sessions#create', as: :login
   delete 'logout'  => 'sessions#destroy', as: :logout

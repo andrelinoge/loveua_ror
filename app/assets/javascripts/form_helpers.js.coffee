@@ -7,8 +7,14 @@
       input = form.find('input, select, textarea').filter(->
         name = $(this).attr('name')
 
+        composite_field_name = field.split('.');
+        pattern = model_name + '\\[' + field + '\\(?'
+
+        if (composite_field_name.length == 2)
+          pattern = model_name + '\\[' + composite_field_name[0] + '_attributes\\]' + '\\[' + composite_field_name[1] + '\\(?'
+
         if name
-          name.match(new RegExp(model_name + '\\[' + field + '\\(?'))
+          name.match(new RegExp(pattern))
       )
 
       if input.length

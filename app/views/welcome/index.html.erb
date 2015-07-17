@@ -4,7 +4,7 @@
 		</div>
 		
 		<div class="col-lg-4">
-			<% unless logged_in? %>
+			<% unless user_signed_in? %>
 				<ul class="nav nav-tabs" role="tablist">
 				    <li role="presentation" class="active">
 				    	<a href="#registration" aria-controls="registration" role="tab" data-toggle="tab">Registration</a>
@@ -18,15 +18,17 @@
 			  <!-- Tab panes -->
 			  <div class="tab-content">
 			    <div role="tabpanel" class="tab-pane active" id="registration">
-			    	<%= simple_form_for @initial_registration_form, remote: true, url: initial_registration_path, html: {id: 'initial_registration'} do |f| %>
+			    	<%= simple_form_for @user, remote: true, format: :json, url: user_registration_path, html: {id: 'initial_registration'} do |f| %>
 							<%= f.input :email %>
-							<%= f.input :name %>
+							<%= f.input :first_name %>
 							
-							<%= f.input :age, as: :select, collection: Questionary.age_options %>
+							<%= f.fields_for :questionary do |q| %>
+								<%= q.input :age, as: :select, collection: Questionary.age_options %>
 							
-							<%= f.input :gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE}  %>
+								<%= f.input :gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE}, checked: User::MALE  %>
 							
-							<%= f.input :seek_gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE} %>
+								<%= q.input :seek_gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE}, checked: User::FEMALE %>
+							<% end %>
 
 							<%= f.submit 'Register' %>
 						<% end %>
@@ -51,6 +53,6 @@
 <script type="text/javascript">
 	$(function() {
 		var initial_registration = new InitialRegistration('<%= complete_registration_url %>');
-		var auth_controller = new AuthController('<%= own_profile_url %>');
+		//var auth_controller = new AuthController('<%= own_profile_url %>');
 	});
 </script>

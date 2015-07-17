@@ -12,8 +12,8 @@ class Questionary < ActiveRecord::Base
   belongs_to :region
 
   validates :age, :numericality => { :greater_than_or_equal_to => MIN_AGE, :less_than_or_equal_to => MAX_AGE }
-  validates :weight, :numericality => { :greater_than_or_equal_to => MIN_WEIGHT, :less_than_or_equal_to => MAX_WEIGHT }
-  validates :height, :numericality => { :greater_than_or_equal_to => MIN_HEIGHT, :less_than_or_equal_to => MAX_HEIGHT }
+  validates :weight, :numericality => { :greater_than_or_equal_to => MIN_WEIGHT, :less_than_or_equal_to => MAX_WEIGHT }, allow_blank: true
+  validates :height, :numericality => { :greater_than_or_equal_to => MIN_HEIGHT, :less_than_or_equal_to => MAX_HEIGHT }, allow_blank: true
 
   def self.age_options
     (MIN_AGE..MAX_AGE).step(1).to_a.map{|age| ["#{age}", age]}

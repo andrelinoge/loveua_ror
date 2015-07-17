@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
   skip_authorization_check 
   
 	def index
-		@initial_registration_form = InitialRegistrationForm.new
+		@user = User.new
+    @user.build_profile
+    @user.build_questionary
 	end
 end
