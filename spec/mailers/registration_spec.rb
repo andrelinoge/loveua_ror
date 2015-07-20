@@ -6,10 +6,11 @@ RSpec.describe RegistrationMailer, type: :mailer do
 
     let(:user) {
       mock_model User,
-      name: 'user name',
+      first_name: 'first_name',
+      last_name: 'last_name',
       email: 'valid@mail.com',
-      gender: User::MALE,
-      role: User::ROLE_USER,
+      gender: User::GENDER_MALE,
+      role: :user,
       password: password
     }
 

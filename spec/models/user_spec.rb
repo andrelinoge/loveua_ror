@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 	let(:attributes) {
 		{ 
-			name: 'user name',
+			first_name: 'first_name',
+			last_name: 'last_name',
 			email: 'valid@mail.com',
-			gender: User::MALE,
-			role: User::ROLE_USER,
-			password: '123456'
+			gender: User::GENDER_MALE,
+			role: :user,
 		}
 	}
 
 	context 'Validations' do
-		it { should validate_presence_of(:name) }
+		it { should validate_presence_of(:first_name) }
 		it { should validate_presence_of(:email) }
 		it { should validate_presence_of(:gender) }
 
@@ -27,39 +27,25 @@ RSpec.describe User, type: :model do
 		it 'fails if email alredy exists' do
 			user = User.create(
 				email: 'valid@mail.com',
-	      password: '123456',
-	      role: User::ROLE_USER,
-	      gender: User::MALE,
-	      is_email_confirm: true,
+	      role: :user,
+	      gender: User::GENDER_MALE,
 	      avatar: 'none',
-	      name: 'user name'
+	      first_name: 'first_name',
+	      last_name: 'last_name'
 			)
 
 			expect(User.new(attributes).valid?).to be_falsy
 		end
 
 		it 'success if gender is MALE or FEMAIL' do
-			expect(User.new(attributes.update(gender: User::MALE)).valid?).to be_truthy
-			expect(User.new(attributes.update(gender: User::FEMALE)).valid?).to be_truthy
+			expect(User.new(attributes.update(gender: User::GENDER_MALE)).valid?).to be_truthy
+			expect(User.new(attributes.update(gender: User::GENDER_FEMALE)).valid?).to be_truthy
 		end
 
 		it 'fails if gender is not MALE or FEMAIL' do
-			expect(User.new(attributes.update(gender: 0)).valid?).to be_falsy
+			expect {User.new(attributes.update(gender: 0)) }.to raise_error(ArgumentError)
 		end
 
-		it 'fails if no password' do
-	  	expect(User.new(attributes.except(:password)).valid?).to be_falsy
-	  end
-
-	  it 'fails if password too short' do
-	  	expect(User.new(attributes.update(password: 'short')).valid?).to be_falsy
-	  end
-
-	  it 'pass if password long enough' do
-	  	expect(User.new(attributes.update(password: 'long_password')).valid?).to be_truthy
-	  end
-
-	  it { should have_secure_password }
 	end
 
 	context 'Mailing' do

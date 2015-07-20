@@ -9,8 +9,6 @@ class RegistrationsController < Devise::RegistrationsController
 
 		resource.assign_attributes(sign_up_params)
 
-		generated_password = Devise.friendly_token.first(8)
-		resource.password  = generated_password
 		resource.role      = :user
     resource.save
 
@@ -29,8 +27,6 @@ class RegistrationsController < Devise::RegistrationsController
 		    	format.json { render json: {}, status: :ok }
 		    end
       end
-
-      RegistrationMailer.welcome(resource, generated_password).deliver_now
     else
       #clean_up_passwords resource
       #set_minimum_password_length

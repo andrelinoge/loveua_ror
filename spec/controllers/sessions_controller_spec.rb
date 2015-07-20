@@ -9,11 +9,13 @@ RSpec.describe SessionsController do
     }}
 
     it "log in user " do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+
       FactoryGirl.create(:user, email: email, password: password )
+      
+      post :create, user: valid_credentials, format: :json
 
-      post :create, session: valid_credentials, format: :json
-
-      expect(subject.logged_in?).to be_truthy
+      expect(subject.user_signed_in?).to be_truthy
     end
   end
 
@@ -29,11 +31,13 @@ RSpec.describe SessionsController do
     it "log out user " do
       FactoryGirl.create(:user, email: email, password: password )
 
-      post :create, session: valid_credentials, format: :json
-      expect(subject.logged_in?).to be_truthy
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+
+      post :create, user: valid_credentials, format: :json
+      expect(subject.user_signed_in?).to be_truthy
       
       delete :destroy
-      expect(subject.logged_in?).to be_falsy
+      expect(subject.user_signed_in?).to be_falsy
     end
   end
 end
