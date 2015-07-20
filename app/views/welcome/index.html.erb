@@ -25,9 +25,9 @@
 							<%= f.fields_for :questionary do |q| %>
 								<%= q.input :age, as: :select, collection: Questionary.age_options %>
 							
-								<%= f.input :gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE}, checked: User::MALE  %>
+								<%= f.input :gender, as: :radio_buttons, collection: {'male' => :male, 'female' => :female}, checked: :male  %>
 							
-								<%= q.input :seek_gender, as: :radio_buttons, collection: {'male' => User::MALE, 'female' => User::FEMALE}, checked: User::FEMALE %>
+								<%= q.input :seek_gender, as: :radio_buttons, collection: {'male' => User::GENDER_MALE, 'female' => User::GENDER_FEMALE}, checked: User::GENDER_FEMALE %>
 							<% end %>
 
 							<%= f.submit 'Register' %>
@@ -35,11 +35,16 @@
 			    </div>
 
 			    <div role="tabpanel" class="tab-pane" id="login">
-			    	<%= simple_form_for(:session,  url: login_url, remote: true, html: { id: 'login' }) do |f| %>
+			    	<%= simple_form_for(User.new,  url: new_user_session_path, remote: true, forma: :json, html: { id: 'login' }) do |f| %>
 			    		<%= f.input :email %>
 			    		<%= f.input :password %>
 
-						  <%= f.input :remember_me,  as: :boolean, checked_value: true, unchecked_value: false, inline_label: 'Yes, remember me' %>
+						  <% if Devise.mappings[:user].rememberable? -%>
+				        <div>
+				          <%= f.check_box :remember_me %>
+				          <%= f.label :remember_me %>
+				        </div>
+				      <% end -%>
 
 			    		<%= f.submit 'Log in' %>
 			    	<% end %>
@@ -53,6 +58,6 @@
 <script type="text/javascript">
 	$(function() {
 		var initial_registration = new InitialRegistration('<%= complete_registration_url %>');
-		//var auth_controller = new AuthController('<%= own_profile_url %>');
+		var auth_controller = new AuthController('<%= own_profile_url %>');
 	});
 </script>

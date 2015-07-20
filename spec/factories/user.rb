@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :user do
     name 'user'
     email 'valid@mail.com'
-    gender User::MALE
-    role User::ROLE_USER
+    gender User::GENDER_MALE
+    role :user
     password '123456'
 
     association :profile, factory: :profile
@@ -13,8 +13,8 @@ FactoryGirl.define do
   factory :admin, class: User do
     name 'admin'
     email 'admin@mail.com'
-    gender User::MALE
-    role User::ROLE_ADMIN
+    gender User::GENDER_MALE
+    role :admin
     password '123456'
   end
 end

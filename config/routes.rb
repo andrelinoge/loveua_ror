@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {registrations: 'registrations'}
+  devise_for :users, controllers: {registrations: 'registrations', sessions: 'sessions'} do
+  end
 
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
@@ -8,12 +9,11 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  get 'registration/complete' => 'registrations#complete', as: :complete_registration
-  get 'registration/update_account' => 'registrations#complete'
-  patch 'registration/update_account' => 'registrations#update_account', as: :update_account_registration
-
-  post 'login' => 'sessions#create', as: :login
-  delete 'logout'  => 'sessions#destroy', as: :logout
+  devise_scope :user do
+    get 'registrations/complete' => 'registrations#complete', as: :complete_registration
+    get 'registrations/update_account' => 'registrations#complete'
+    patch 'registrations/update_account' => 'registrations#update_account', as: :update_account_registration
+  end
 
   get 'profile/' => 'profile#show', as: :own_profile
   get 'profile/:id' => 'profile#show', as: :profile

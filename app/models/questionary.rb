@@ -6,6 +6,11 @@ class Questionary < ActiveRecord::Base
   MIN_HEIGHT = 80
   MAX_HEIGHT = 230
 
+  enum gender: { 
+    male: User::GENDER_MALE, 
+    female: User::GENDER_FEMALE
+  }
+
   belongs_to :user
 
   belongs_to :city

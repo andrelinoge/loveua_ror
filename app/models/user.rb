@@ -3,20 +3,17 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-	MALE   = 1
-	FEMALE = 2
 
-	ROLE_USER  = 10
-	ROLE_ADMIN = 20
+	GENDER_MALE   = 1
+	GENDER_FEMALE = 2
 
-  ROLES = %w[admin moderator user]
+  enum role: [:guest, :user, :moderator, :admin]
+  enum gender: {
+    male: GENDER_MALE, 
+    female: GENDER_FEMALE
+  }
 
 	validates_presence_of :first_name, :gender, on: :create
-
-	validates :gender, inclusion: { in: [User::MALE, User::FEMALE] }
-
-	#before_create :generate_password
-	#after_create :send_welcome_email
 
 	has_one :profile
 	has_one :questionary
@@ -26,13 +23,7 @@ class User < ActiveRecord::Base
 
 	mount_uploader :avatar, AvatarUploader
 
-  def role?(base_role)
-    ROLES.index(base_role.to_s) <= ROLES.index(role)
-  end
-
-  def is_guest?
-  	self.role.nil?
-  end
+  after_initialize :set_default_role, if: :new_record?
 
   def password_required?
     new_record? ? false : super
@@ -40,17 +31,7 @@ class User < ActiveRecord::Base
 
 	private
 
-	def generate_password
-		if self.password.empty?
-			@generated_password = ('a'..'z').to_a.shuffle.first(8).join
-			self.password = @generated_password
-      self.password_confirmation = @generated_password
-		else
-			@generated_password = self.password
-		end
-	end
-
-	def send_welcome_email
-		RegistrationMailer.welcome(self, @generated_password).deliver_now if self.email.present?
-	end
+  def set_default_role
+    self.role ||= :guest
+  end
 end

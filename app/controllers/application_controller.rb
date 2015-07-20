@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   #check_authorization # cancancan - check authorization for every action
 
-  def authenticate_admin_user!
-    redirect_to root_path unless current_user.try(:is_admin?)
-  end
+  # def authenticate_admin_user!
+  #   redirect_to root_path unless current_user.admin?
+  # end
 end

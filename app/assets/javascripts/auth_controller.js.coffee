@@ -1,9 +1,5 @@
 class AuthController
 	constructor: (@redirect_on_success) ->
-		$.ajaxSetup({
-		  dataType: 'json'
-		})
-
 		$('form#login').on('ajax:success', (e, data, status, xhr) =>
 			window.location = @redirect_on_success
 		)

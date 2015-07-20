@@ -1,27 +1,31 @@
-class SessionsController < ApplicationController
-	skip_authorization_check 
+class SessionsController < Devise::SessionsController
+	respond_to :json
 
-	def create
-		user = User.find_by(email: params[:session][:email].downcase)
-		
-		if user && user.authenticate(params[:session][:password]) 
-			log_in user
-			params[:session][:remember_me] == 1 ? remember(user) : forget(user)
+	 def create
+    self.resource = warden.authenticate!(auth_options)
 
-			respond_to do |format| 
-				format.html { redirect_to own_profile_path }
-				format.json { render json: {}, status: :ok }
-			end
-		else
-			respond_to do |format| 
-				format.json { render json: { error_message: 'wrong email or password' }, status: :unprocessable_entity }
-			end
-		end
-	end
+    sign_in(resource_name, resource)
+    yield resource if block_given?
 
-	def destroy
-		log_out if logged_in?
-		
-		redirect_to root_url
-	end
+    respond_to do |format|
+    	format.json { render json: {}, status: :ok }
+    end
+  end
+
+  def failure   
+    warden.custom_failure!
+
+    render json: { success: false, error_message: 'Wrong password or email' }, status: 401
+  end
+
+  def destroy
+    super
+    flash.delete(:notice)
+  end
+
+  protected
+
+  def auth_options
+    { :scope => resource_name, :recall => "#{controller_path}#failure" }
+  end
 end
