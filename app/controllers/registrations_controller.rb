@@ -1,7 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
 	def create
-
     build_resource
 
     resource.build_questionary

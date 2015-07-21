@@ -10,7 +10,7 @@ class QuestionaryDecorator < Draper::Decorator
   end
 
   def seek_gender
-    model.seek_gender == User::MALE ? 'Male' : 'Female'
+    model.seek_gender == User::GENDER_MALE ? 'Male' : 'Female'
   end
 
   def height

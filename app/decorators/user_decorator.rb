@@ -2,11 +2,10 @@ class UserDecorator < Draper::Decorator
   delegate_all
 
   def role
-    object.is_admin? ? 'Admin' : 'User'
+    object.admin? ? 'Admin' : 'User'
   end
 
-  def is_email_confirm
-    object.is_email_confirm ? 'Yes' : 'No'
+  def gender
+    object.gender.humanize
   end
-
 end
