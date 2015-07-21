@@ -42,6 +42,7 @@ ActiveAdmin.register User do
 
     f.inputs 'User details' do
       f.input :avatar, as: :file, hint: f.object.avatar.present? ? image_tag(f.object.avatar.small_thumb.url) : 'no avatar yet'
+      f.input :avatar_cache, as: :hidden
       f.input :first_name, required: true
       f.input :last_name, required: true
       f.input :email, required: true

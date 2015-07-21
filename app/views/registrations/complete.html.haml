@@ -1,0 +1,32 @@
+.row
+  .col-lg-12.center-text
+    %h2 Complete registration
+= simple_form_for @user, url: update_account_registration_path, html: { multipart: true } do |f|
+  .row
+    .col-lg-12
+      = image_tag(@user.avatar.url) if @user.avatar
+      = f.file_field :avatar
+      = f.hidden_field :avatar_cache
+  .row
+    .col-lg-12
+      = f.fields_for :profile do |p|
+        = p.association :mood
+        = p.association :zodiak
+        = p.input :interesting
+        = p.input :about
+  .row
+    .col-lg-12
+      = f.fields_for :questionary do |q|
+        = q.association :region, include_blank: 'your region'
+        = q.association :city, disabled: q.object.region.nil?, include_blank: 'your city', collection: collestion_of_cities_for_region(q.object.region)
+        = q.input :age, as: :select, collection: Questionary::age_options
+        = q.input :height
+        = q.input :weight
+  = f.submit 'Save'
+
+:javascript
+  $(function() {
+    var locationController = new LocationController;
+
+    locationController.track_region_change('#user_questionary_attributes_region_id', '#user_questionary_attributes_city_id');
+  });

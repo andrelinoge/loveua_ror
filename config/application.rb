@@ -32,5 +32,6 @@ module LoveUa
     config.active_record.raise_in_transactional_callbacks = true
 
     config.web_console.whitelisted_ips = '192.168.92.1'
+    config.encoding = "utf-8"
   end
 end
