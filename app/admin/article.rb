@@ -7,7 +7,7 @@ ActiveAdmin.register Article do
 		column :id
 		column :title
 		column :content do |article|
-			truncate(article.content, length: 200, escape: false)
+			truncate(strip_tags(article.content), length: 200, escape: false)
 		end
 		column :created_at
 
@@ -20,7 +20,9 @@ ActiveAdmin.register Article do
 				image_tag(model.cover.url)
 			end
 			row :title
-			row :content
+			row :content do 
+				raw(model.content)
+			end
 		end
 	end
 
@@ -31,7 +33,7 @@ ActiveAdmin.register Article do
 			f.input :cover, as: :file
 			f.input :cover_cache, as: :hidden
 			f.input :title
-			f.input :content
+			f.input :content, input_html: { class: 'redactor' }
 		end
 
 		f.actions
