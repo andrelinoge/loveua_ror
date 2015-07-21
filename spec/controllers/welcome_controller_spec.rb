@@ -1,21 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe WelcomeController, type: :controller do
-	# describe "GET index" do
-	# 	let!(:form) { mock_model("InitialRegistrationForm").as_new_record }
+	describe "GET index" do
+		it "renders index template" do
+			@user = User.new
+			@user.build_profile
+			@user.build_questionary
 
-	# 	before :each do
-	# 		allow(InitialRegistrationForm).to receive(:new).and_return(form)
-	# 	end
-
-	# 	it "renders index template" do
-	# 		get :index
-	# 		expect(response).to render_template :index
-	# 	end
-
-	# 	it "assigns @initial_registration_form to the view" do
-	# 		get :index
-	# 		expect(assigns[:initial_registration_form]).to eq(form)
-	# 	end
-	# end
+			get :index
+			expect(response).to render_template :index
+		end
+	end
 end

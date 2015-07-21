@@ -3,14 +3,14 @@ When /^I enter valid credentials and click log in button$/ do
 
   visit('/')
   click_on 'Login'
-  fill_in 'session_email', with: 'user@mail.com'
-  fill_in 'session_password', with: '123456'
+  fill_in 'user[email]', with: 'user@mail.com'
+  fill_in 'user[password]', with: '123456'
   click_on 'Log in'
 end
 
 Then /^I should be logged in$/ do
   user = User.find_by_email 'user@mail.com'
-  expect(page).to have_content user.name
+  expect(page).to have_content user.first_name
   expect(page).to have_content 'Log out'
 end 
 
@@ -23,14 +23,14 @@ When /^I enter invalid credentials and click log in button$/ do
 
   visit('/')
   click_on 'Login'
-  fill_in 'session_email', with: 'user@mail.com'
-  fill_in 'session_password', with: 'abc'
+  fill_in 'user[email]', with: 'user@mail.com'
+  fill_in 'user[password]', with: 'abc'
   click_on 'Log in'
 end
 
 Then /^I should see authorization error messages$/ do
   sleep 2
-  expect(page).to have_content 'wrong email or password'
+  expect(page).to have_content I18n.t('error_messages.wrong_login_credentials')
 end
 
 When /^I click 'log out'$/ do

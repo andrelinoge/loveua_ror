@@ -1,10 +1,10 @@
 When /^I fill registration form with valid data$/ do
   visit('/')
-  fill_in 'initial_registration_form[email]', with: 'email@mail.com'
-  fill_in 'initial_registration_form[name]', with: 'user_name'
-  select '28', from: 'initial_registration_form[age]'
-  choose 'initial_registration_form[gender]', option: User::MALE
-  choose 'initial_registration_form[seek_gender]', option: User::FEMALE
+  fill_in 'user[email]', with: 'email@mail.com'
+  fill_in 'user[first_name]', with: 'user_name'
+  select '28', from: 'user[questionary_attributes][age]'
+  choose 'user[gender]', option: :male
+  choose 'user[questionary_attributes][seek_gender]', option: User::GENDER_FEMALE
   click_on 'Register'
 end
 
@@ -23,17 +23,17 @@ end
 
 When /^I fill registration form with invalid data$/ do
   visit('/')
-  fill_in 'initial_registration_form[email]', with: 'email#mail.com'
-  fill_in 'initial_registration_form[name]', with: ''
-  select '28', from: 'initial_registration_form[age]'
-  choose 'initial_registration_form[gender]', option: User::MALE
-  choose 'initial_registration_form[seek_gender]', option: User::FEMALE
+  fill_in 'user[email]', with: 'email#mail.com'
+  fill_in 'user[first_name]', with: 'user_name'
+  select '28', from: 'user[questionary_attributes][age]'
+  choose 'user[gender]', option: :male
+  choose 'user[questionary_attributes][seek_gender]', option: User::GENDER_FEMALE
   click_on 'Register'
 end
 
 Then /^I should see validation errors$/ do
   sleep 2
-  expect(page).to have_content "Can't be blank"
+  expect(page).to have_content "Email Is invalid"
 end
 
 Then /^stay on the same page$/ do

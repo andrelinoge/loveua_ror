@@ -15,7 +15,7 @@ class SessionsController < Devise::SessionsController
   def failure   
     warden.custom_failure!
 
-    render json: { success: false, error_message: 'Wrong password or email' }, status: 401
+    render json: { success: false, error_message: I18n.t('error_messages.wrong_login_credentials') }, status: 401
   end
 
   def destroy
