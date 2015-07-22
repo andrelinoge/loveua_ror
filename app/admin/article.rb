@@ -1,4 +1,5 @@
 ActiveAdmin.register Article do
+	decorate_with ArticleDecorator
 
 	permit_params :title, :cover, :content, :cover_cache
 	filter :title, as: :string

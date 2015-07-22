@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'articles/index'
+
+  get 'articles/show'
+
   mount RedactorRails::Engine => '/redactor_rails'
   devise_for :users, controllers: {registrations: 'registrations', sessions: 'sessions'} do
   end
@@ -20,6 +24,8 @@ Rails.application.routes.draw do
   get 'profile/:id' => 'profile#show', as: :profile
 
   post 'location/cities' => 'location#cities'
+
+  resources :articles, only: [:index, :show]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

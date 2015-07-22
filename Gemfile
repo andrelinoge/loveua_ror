@@ -11,6 +11,7 @@ gem 'email_validator'
 gem 'haml'
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'mini_magick'
 gem 'mysql2'
 gem 'pundit'
@@ -28,6 +29,7 @@ group :development, :test do
   gem "better_errors"
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'faker'
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'pry-byebug'

@@ -1,0 +1,11 @@
+.row
+	.col-lg-12
+		%h1=@article.title
+
+.row
+	.col-lg-12
+		= image_tag @article.cover.url
+
+.row
+	.col-lg-12
+		= raw(@article.content)

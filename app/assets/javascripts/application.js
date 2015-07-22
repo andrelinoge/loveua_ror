@@ -16,4 +16,10 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require notify.min
-//= require_tree .
+//= require form_helpers
+
+
+//= require auth_controller
+//= require initial_registration
+//= require location_controller
+//= require notifications
