@@ -23,3 +23,6 @@
 //= require initial_registration
 //= require location_controller
 //= require notifications
+
+
+//= require jquery-fileupload/basic

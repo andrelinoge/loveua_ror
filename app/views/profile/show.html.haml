@@ -1,1 +1,47 @@
-%h1 Your profile
+.row.profile
+	.col-lg-4
+		.row 
+			.col-lg-12.text-center
+				= image_tag @user.avatar.big_thumb.url, {alt: @user.full_name}
+
+
+	.col-lg-8
+		.row
+			.col-lg-12
+				%h1.text-right= "#{@user.full_name} (#{@questionary.city})"
+
+		.row
+			.col-lg-12
+				%table
+					%tr
+						%td.attr_label Mood
+						%td= @profile.mood
+
+					%tr
+						%td.attr_label Zodiak
+						%td= @profile.zodiak
+
+					%tr
+						%td.attr_label Weight
+						%td= @questionary.weight
+
+					%tr
+						%td.attr_label Height
+						%td= @questionary.height
+
+					%tr
+						%td.attr_label Age
+						%td= @questionary.age
+
+					%tr
+						%td.attr_label Interesting
+						%td= @profile.interesting
+
+					%tr
+						%td.attr_label abount
+						%td= @profile.about
+
+- if @user.images.present?
+	.row.profile
+		.col-lg-12
+			image here

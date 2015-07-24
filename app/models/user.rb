@@ -17,11 +17,12 @@ class User < ActiveRecord::Base
 
 	has_one :profile
 	has_one :questionary
+  has_many :images
 
 	accepts_nested_attributes_for :profile
 	accepts_nested_attributes_for :questionary
 
-	mount_uploader :avatar, AvatarUploader
+	mount_uploader :avatar, ImageUploader
 
   after_initialize :set_default_role, if: :new_record?
   before_create :generate_password

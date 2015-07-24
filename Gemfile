@@ -10,6 +10,7 @@ gem 'draper'
 gem 'email_validator'
 gem 'haml'
 gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem "jquery-fileupload-rails"
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'mini_magick'
@@ -26,7 +27,6 @@ gem "twitter-bootstrap-rails"
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
-  gem "better_errors"
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'faker'
@@ -39,6 +39,7 @@ group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
+  gem 'quiet_assets'
   gem 'web-console', '~> 2.0'
   
 end

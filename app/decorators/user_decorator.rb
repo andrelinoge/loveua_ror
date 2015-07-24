@@ -2,10 +2,14 @@ class UserDecorator < Draper::Decorator
   delegate_all
 
   def role
-    object.admin? ? 'Admin' : 'User'
+    model.admin? ? 'Admin' : 'User'
   end
 
   def gender
-    object.gender.humanize
+    model.gender.humanize
+  end
+
+  def full_name
+  	[model.first_name, model.last_name].join(' ')
   end
 end

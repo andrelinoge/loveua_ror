@@ -12,4 +12,7 @@
  *
  *= require_self
  *= require bootstrap_and_overrides
+ *= require profile
+ *= require jquery.fileupload
+ *= require jquery.fileupload-ui
  */
